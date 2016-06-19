@@ -1,0 +1,25 @@
+{
+  "name": "git_project",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/WalkerKharkov/Test-uits-JavaScript.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/WalkerKharkov/Test-uits-JavaScript/issues"
+  },
+  "homepage": "https://github.com/WalkerKharkov/Test-uits-JavaScript#readme",
+  "dependencies": {
+    "gulp": "^3.9.1",
+    "gulp-concat-css": "^2.3.0",
+    "gulp-cssmin": "^0.1.7",
+    "gulp-rename": "^1.2.2"
+  }
+}

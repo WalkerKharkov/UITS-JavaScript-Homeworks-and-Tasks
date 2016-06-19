@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html >
+<head>
+    <meta charset="UTF-8">
+    <title>HomeWork</title>
+</head>
+<body>
+	<style>
+		.square{
+			height: 50px;
+			width: 50px;
+			font-size: 20px;
+			border: 1px solid;
+		}
+		
+		#drag{
+			background-color: red;
+			/*position: absolute;*/
+			z-index: 1000;
+		}
+		
+		#move{
+			background-color: green;
+		}
+	</style>
+	<button type="button" id="back">back to top</button>
+	<button type="button" id="stop">stop moving</button>
+	<div id="drag" class="square">drag me</div>
+	<div id="move" class="square">move me</div>
+	<!-- back to top button; -->
+    <!-- drag - создать квадрать размером 50х50 и сделать возможность перетаскивать его по документу; -->
+    <!-- создайте div, при клике на него, div начинает двигаться вправо, при клике на кнопку - останавливается, при попадании div к краю окна, он переходит к началу окна. -->
+	<script>
+		var doc=document,
+			drag=doc.querySelector("#drag"),
+			move=doc.querySelector("#move"),
+			back=doc.querySelector("#back"),
+			stop=doc.querySelector("#stop"),
+			shiftX, shiftY, timer;
+			
+		function dragClick(event){
+			shiftX=event.pageX-drag.getBoundingClientRect().left+pageXOffset,
+			shiftY=event.pageY-drag.getBoundingClientRect().top+pageYOffset;
+			drag.style.position="absolute";
+			doc.addEventListener("mousemove", dragMove);
+			drag.addEventListener("mouseup", dragClear);
+		}
+		
+		function dragMove(event){
+			drag.style.left=event.pageX-shiftX+"px";
+			drag.style.top=event.pageY-shiftY+"px";
+		}
+		
+		function dragClear(){
+			doc.removeEventListener("mousemove", dragMove);
+			drag.removeEventListener("mouseup", dragClear);
+		}
+		
+		function moveRight(){
+			move.style.position="absolute";
+			var left=move.getBoundingClientRect().left;
+			timer=setInterval(function(){
+					if (left>=window.innerWidth) left=0;
+					move.style.left=left+"px";
+					left++;
+				}, 2)
+		}
+		
+		drag.addEventListener("dragstart", function(event){
+			event.preventDefault();
+			return false;
+		});
+		drag.addEventListener("mousedown", dragClick);
+		drag.addEventListener("mouseup", dragClear);
+		back.addEventListener("click", function(){
+			drag.style.cssText="top: 0; left: 0; position: relative;";
+		});
+		
+		move.addEventListener("click", moveRight);
+		stop.addEventListener("click", function(){
+			clearInterval(timer);
+		});
+	</script>
+</body>
+</html>

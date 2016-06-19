@@ -1,0 +1,27 @@
+#screen{
+    width: 200px;
+    height: 200px;
+    overflow: hidden;
+}
+
+#list{
+    position: relative;
+    list-style-type: none;
+    height: 200px;
+}
+
+li{
+    float: left;
+    width: 200px;
+    height: 200px;
+    text-align: center;
+    vertical-align: center;
+    font-size: 160px;
+    color: red;
+}
+
+#screen, #list, li{
+    margin: 0;
+    padding: 0;
+}
+
