@@ -1,13 +1,9 @@
 var doc = document;
-    /*image=doc.querySelector("#image"),
-    previews=doc.querySelector("#previews"),
-    bigImage=doc.createElement("IMG"),
-    imgNumber=7, previewsNumber=4, previewsWidth=100,
-    previewsHeight=50, elemCash, currentPosition;*/
 
 
 function Slider(elem){
     this.elem = elem;
+    this.child = this.elem.firstElementChild;
 
     this.imagesInit();
 
@@ -21,24 +17,33 @@ Slider.prototype.imagesInit = function () {
         elem.setAttribute("data-id", ""+i);
         elem.setAttribute("data-attr", "img");
         elem.style.cssText = "width:" + this.imgWidth + "px; height:" + this.imgHeight + "px;";
-        this.elem.firstElementChild.appendChild(elem);
+        this.child.appendChild(elem);
     }
 
     this.imgNumber = 7;
-    this.imgHeight = 50;
-    this.imgWidth = 100;
-    this.elem.style.width = this.imgWidth;
-    this.elem.style.height = this.imgHeight;
-    this.elem.style.outline = "1px black";
-
+    this.imgHeight = 100;
+    this.imgWidth = 200;
+    this.elem.style.width = this.child.style.width = this.imgWidth + "px";
+    this.elem.style.height = this.child.style.height = this.imgHeight + "px";
+    this.elem.style.outline = "1px black solid";
+    this.maxHeight = this.imgHeight * (this.imgNumber - 1);
+    this.child.style.top = 0 + "px";
 };
 
 Slider.prototype.add = function(){
+    var self = this;
     function onWheel(e) {
         e = e || window.event;
         var delta = e.deltaY || e.detail || e.wheelDelta;
-        var info = document.getElementById('delta');
-        info.innerHTML = +info.innerHTML + delta;
+        var top = 0;
+        if(delta > 0){
+            top = parseInt(getComputedStyle(self.child).top) - self.imgHeight;
+            top = (Math.abs(top) > self.maxHeight) ? 0 : top;
+        }else{
+            top = parseInt(getComputedStyle(self.child).top) + self.imgHeight;
+            top = (top > 0) ? -self.maxHeight : top
+        }
+        self.child.style.top = top - 1 + "px";
     }
     if (this.elem.addEventListener) {
         if ('onwheel' in document) {
