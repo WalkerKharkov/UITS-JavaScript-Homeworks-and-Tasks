@@ -1,0 +1,1 @@
+function App(){    this.init();}App.prototype = Object.create(Helper.prototype);App.prototype.init = function(){    new Iframes(document.querySelector(".val-iframe-streams "));};window.addEventListener("DOMContentLoaded", function(){    new App();});
